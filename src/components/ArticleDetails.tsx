@@ -1,24 +1,28 @@
 import { Card } from 'react-bootstrap';
-import { Article } from '../types/types';
+import type { ArticleDetail } from '../types/types';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const apiURL = 'https://api.spaceflightnewsapi.net/v4/articles/';
-const articleID = new URLSearchParams(location.search);
 
 const ArticleDetails = () => {
-  const [details, setDetails] = useState<Article[]>([]);
+  const params = useParams();
+  const articleID = params.id;
+  console.log(articleID);
+  const [details, setDetails] = useState<ArticleDetail>();
 
   const getArticleDetails = () => {
     fetch(apiURL + articleID)
       .then((res) => {
         if (res.ok) {
-          res.json();
+          return res.json();
         } else {
           throw new Error('error' + res.status);
         }
       })
-      .then((articleDetails) => {
-        
+      .then((data: ArticleDetail) => {
+        console.log(data);
+        setDetails(data);
       })
       .catch((err) => {
         console.log('error', err);
@@ -26,16 +30,20 @@ const ArticleDetails = () => {
   };
 
   useEffect(() => {
-    getArticleDetails()
-  }, [])
+    getArticleDetails();
+  }, []);
 
   return (
     <Card>
-      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Img variant="top" src={details?.image_url} />
       <Card.Body>
+        <Card.Title>{details?.title}</Card.Title>
+        <Card.Text>{details?.summary}</Card.Text>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          By:{' '}
+          {details?.authors.map((a, index) => (
+            <span key={index}>{a.name}</span>
+          ))}
         </Card.Text>
       </Card.Body>
     </Card>

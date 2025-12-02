@@ -34,7 +34,7 @@ const Home = () => {
     <Container>
       <Row className="flex-column">
         <Col>
-          <h1>Titolo Articoli</h1>
+          <h1 className='text-center my-3'>Gli articoli più ricercati!</h1>
         </Col>
         <Col>
           <Row>
