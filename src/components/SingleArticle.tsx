@@ -25,7 +25,7 @@ const SingleArticle = function ({ articleFromProps }: SingleArticleProps) {
         </footer>
         <div className="text-center">
           <Link
-            to= {`/details/${articleFromProps.id}`}
+            to={`/details/${articleFromProps.id}`}
             className="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
           >
             Open article

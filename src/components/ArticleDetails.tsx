@@ -1,18 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Card } from 'react-bootstrap';
 import type { ArticleDetail } from '../types/types';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-const apiURL = 'https://api.spaceflightnewsapi.net/v4/articles/';
+const apiURL = 'https://api.spaceflightnewsapi.net/v4/articles?';
 
 const ArticleDetails = () => {
-  const params = useParams();
-  const articleID = params.id;
-  console.log(articleID);
+  const { id } = useParams();
+  console.log(id);
   const [details, setDetails] = useState<ArticleDetail>();
 
   const getArticleDetails = () => {
-    fetch(apiURL + articleID)
+    fetch(apiURL + id)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -40,8 +40,8 @@ const ArticleDetails = () => {
         <Card.Title>{details?.title}</Card.Title>
         <Card.Text>{details?.summary}</Card.Text>
         <Card.Text>
-          By:{' '}
-          {details?.authors.map((a, index) => (
+          By:
+          {details?.authors?.map((a, index) => (
             <span key={index}>{a.name}</span>
           ))}
         </Card.Text>
