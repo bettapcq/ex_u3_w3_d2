@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { type ApiResponse, type Article } from '../types/types';
+import { type Article } from '../types/types';
 import { Col, Container, Row } from 'react-bootstrap';
 import SingleArticle from './SingleArticle';
 
@@ -17,7 +17,7 @@ const Home = () => {
           throw new Error('errore' + res.status);
         }
       })
-      .then((data: ApiResponse) => {
+      .then((data) => {
         console.log(data);
         setArticles(data.results);
       })
@@ -31,10 +31,10 @@ const Home = () => {
   }, []);
 
   return (
-    <Container>
+    <Container fluid>
       <Row className="flex-column">
         <Col>
-          <h1 className='text-center my-3'>Gli articoli più ricercati!</h1>
+          <h1 className="text-center my-3">Gli articoli più ricercati!</h1>
         </Col>
         <Col>
           <Row>
